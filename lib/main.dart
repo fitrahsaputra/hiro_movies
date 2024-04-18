@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movies/core.dart';
 
-void main() {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await dotenv.load(fileName: 'lib/.env');
   runApp(const MyApp());
 }
 
@@ -15,19 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                HomeBloc(moviesRemoteDataSource: MoviesRemoteDataSource())
-                  ..add(GetData()))
-      ],
+      providers: myProviders,
       child: MaterialApp(
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          // appBarTheme: const AppBarTheme(elevation: 8),
+          colorScheme: const ColorScheme.dark(),
         ),
-        home: const HomeView(),
+        initialRoute: '/',
+        routes: myRoutes,
       ),
     );
   }

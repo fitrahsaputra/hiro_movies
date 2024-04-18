@@ -13,7 +13,6 @@ class DataLoading extends HomeState {}
 
 class DataLoaded extends HomeState {
   final List<Result> movieList;
-  final String imagePath = 'https://image.tmdb.org/t/p/w500';
 
   const DataLoaded({required this.movieList});
 }

@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../../../core.dart';
 
-class MoviesRemoteDataSource {
+class DetailMovieRemoteDataSource {
   final dio = Dio(BaseOptions(
     baseUrl: dotenv.env['BASE_URL'].toString(),
     headers: {
@@ -16,16 +16,16 @@ class MoviesRemoteDataSource {
     },
   ));
 
-  Future<MoviesModel> getDataMovies() async {
-    final response = await dio.get('/now_playing');
+  Future<DetailMovieModel> getDataMovieById(int id) async {
+    final response = await dio.get('/$id');
     try {
       if (response.statusCode == HttpStatus.ok) {
-        print('Berhasil get data');
-        return MoviesModel.fromJson(response.data);
+        print('Berhasil get data by id');
+        return DetailMovieModel.fromJson(response.data);
       } else {
-        print('Gagal get data');
+        print('Gagal get data by id');
         throw Exception(
-            'Failed to get data. Response status ${response.statusCode}');
+            'Failed to get data by id. Response status ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Error: $e');

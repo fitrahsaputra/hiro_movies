@@ -19,9 +19,12 @@ class MovieItemsWidget extends StatelessWidget {
           child: GestureDetector(
             onTap: () => Navigator.pushNamed(context, RoutesName.detailMovie,
                 arguments: data.id),
-            child: Image.network(
-              dotenv.env['IMAGE_PATH'].toString() + data.posterPath,
-              fit: BoxFit.fill,
+            child: Hero(
+              tag: data.id,
+              child: Image.network(
+                dotenv.env['IMAGE_PATH'].toString() + data.posterPath,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),

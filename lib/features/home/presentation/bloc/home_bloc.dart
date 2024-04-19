@@ -13,8 +13,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetData>((event, emit) async {
       emit(DataLoading());
       try {
-        final data = await moviesRemoteDataSource.getDataMovies();
-        emit(DataLoaded(movieList: data.results));
+        final dataMovieNowPlaying =
+            await moviesRemoteDataSource.getDataMovies();
+        final dataMovieUpcoming =
+            await moviesRemoteDataSource.getDataMoviesUpComing();
+        emit(DataLoaded(
+            movieList: dataMovieNowPlaying.results,
+            movieUpcomingList: dataMovieUpcoming.results));
       } on Exception catch (e) {
         emit(DataError(message: e.toString()));
       }

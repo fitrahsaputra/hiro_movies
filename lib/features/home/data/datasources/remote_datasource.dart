@@ -20,10 +20,26 @@ class MoviesRemoteDataSource {
     final response = await dio.get('/now_playing');
     try {
       if (response.statusCode == HttpStatus.ok) {
-        print('Berhasil get data');
+        print('Berhasil get data movie now playing');
         return MoviesModel.fromJson(response.data);
       } else {
-        print('Gagal get data');
+        print('Gagal get data movie now playing');
+        throw Exception(
+            'Failed to get data. Response status ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<MoviesModel> getDataMoviesUpComing() async {
+    final response = await dio.get('/upcoming');
+    try {
+      if (response.statusCode == HttpStatus.ok) {
+        print('Berhasil get data movie upcoming');
+        return MoviesModel.fromJson(response.data);
+      } else {
+        print('Gagal get data movie upcoming');
         throw Exception(
             'Failed to get data. Response status ${response.statusCode}');
       }

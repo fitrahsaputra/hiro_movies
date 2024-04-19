@@ -13,8 +13,9 @@ class DataLoading extends HomeState {}
 
 class DataLoaded extends HomeState {
   final List<Result> movieList;
+  final List<Result> movieUpcomingList;
 
-  const DataLoaded({required this.movieList});
+  const DataLoaded({required this.movieList, required this.movieUpcomingList});
 }
 
 class DataError extends HomeState {
